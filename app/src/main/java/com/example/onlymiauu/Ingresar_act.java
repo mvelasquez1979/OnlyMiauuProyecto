@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -12,22 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import models.Administrador;
 
+public class Ingresar_act extends AppCompatActivity {
 
-
-public class Activity_ingeso extends AppCompatActivity {
-
-   EditText etUsername, etPassword;
-   Button btnIngresar;
+    EditText etUsername, etPassword;
+    ImageButton btnIngresar, btnVolverIngresar;
+    //Button btnIngresar = findViewById(R.id.btnIngresar);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_ingeso);
+        setContentView(R.layout.activity_ingresar);
 
         etUsername  = findViewById(R.id.etUsername);
         etPassword  = findViewById(R.id.etPassword);
         btnIngresar = findViewById(R.id.btnIngresar);
+        btnVolverIngresar = findViewById(R.id.btnVolverIngresar);
         Intent miHome = new Intent(this, Home_act.class);
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
@@ -38,23 +39,31 @@ public class Activity_ingeso extends AppCompatActivity {
 
                 Administrador adUser = new Administrador();
 
-                if (username.isEmpty() || password.isEmpty()){
-                    Toast.makeText(Activity_ingeso.this,"Por favor, ingrese nombre de Usuario y Contraseña", Toast.LENGTH_SHORT).show();
-                }else if(adUser.validaLogin(username,password)){
-
-                    Toast.makeText(Activity_ingeso.this,"Login correcto" , Toast.LENGTH_LONG).show();
+                if (username.isEmpty() || password.isEmpty()) //  <------------ login y/o contraseña esta vacío
+                    Toast.makeText(Ingresar_act.this, "Por favor, ingrese nombre de Usuario y Contraseña", Toast.LENGTH_SHORT).show();
+                else if(adUser.validaLogin(username,password)){  //  <------------ login y contraseña correcto
+                    Toast.makeText(Ingresar_act.this,"Login correcto" , Toast.LENGTH_LONG).show();
                     startActivity(miHome);
-                }else if(!adUser.validaLogin(username,password)){
-
-                    Toast.makeText(Activity_ingeso.this,"Login incorrecto ", Toast.LENGTH_SHORT).show();
+                }else if(!adUser.validaLogin(username,password)){   //  <------------ login y/o contraseña incorrecto
+                    Toast.makeText(Ingresar_act.this,"Login incorrecto ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+
     }
-    public void irRegistro(View vista){
+    public void irRegistro(View view){
         Intent miRegistro = new Intent(this, Activity_registro.class);
         startActivity(miRegistro);
     }
 
+    public void irMain(View view){
+        Intent miMain = new Intent(this, MainActivity.class);
+        startActivity(miMain);
+    }
 }
+
+
+
+
+
