@@ -3,13 +3,23 @@ package com.example.onlymiauu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.ViewTransitionController;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import models.Administrador;
 
@@ -49,9 +59,8 @@ public class Ingresar_act extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
     public void irRegistro(View view){
         Intent miRegistro = new Intent(this, Activity_registro.class);
         startActivity(miRegistro);
