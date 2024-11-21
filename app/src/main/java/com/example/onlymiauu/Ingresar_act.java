@@ -2,6 +2,7 @@ package com.example.onlymiauu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,6 +31,7 @@ public class Ingresar_act extends AppCompatActivity {
     EditText etUsername, etPassword;
     ImageButton btnIngresar, btnVolverIngresar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +55,11 @@ public class Ingresar_act extends AppCompatActivity {
                     Toast.makeText(Ingresar_act.this, "Por favor, ingrese nombre de Usuario y Contraseña", Toast.LENGTH_SHORT).show();
                 else {
 
-                    RedAdmin networkUtils = new RedAdmin();
-                    UserSession usuActual = new UserSession();
+                    RedAdmin networkUtils = new RedAdmin(); // Instanciar la clase RedAdmin: Donde se encuentra el parametro IP del servidor PHP para los servicios
+                    UserSession usuActual = new UserSession(); // Instanciar la clase UserSession: Donde almacenamos la sesión del usuario
 
                     // URL del JSON
-                    //String ipLocal = networkUtils.localIps();
-                    //String url = "http://192.168.1.108/onlymiauu/listaUsuarios.php"; // URL de lista de usuarios
-                    String url = "http://10.110.47.72/onlymiauu/listaUsuarios.php"; // URL de lista de usuarios
-                    //String url = "http://" + ipLocal.trim() +"/onlymiauu/listaUsuarios.php"; // URL de lista de usuarios
+                    String url = "http://"+ networkUtils.getIpLocal().trim() +"/onlymiauu/listaUsuarios.php"; // URL de lista de usuarios
 
                     // Crear una cola de solicitudes
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -107,6 +106,7 @@ public class Ingresar_act extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError error) {
                                     // Mostrar un mensaje en caso de error
                                     Toast.makeText(Ingresar_act.this, "Error al obtener datos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
                                 }
                             });
                     // Agregar la solicitud a la cola
@@ -117,7 +117,7 @@ public class Ingresar_act extends AppCompatActivity {
     }
 
     public void irRegistro(View view){
-        Intent miRegistro = new Intent(this, Activity_registro.class);
+        Intent miRegistro = new Intent(this, RegistrarActivity.class);
         startActivity(miRegistro);
     }
 

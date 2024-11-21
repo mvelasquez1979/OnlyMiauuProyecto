@@ -1,6 +1,5 @@
 package models;
 
-
 public class Administrador {
     //Variables
     private int    id_administrador;
@@ -50,21 +49,6 @@ public class Administrador {
         this.password = password;
     }
 
-    // Method para validar Login
-   /* public boolean validaLogin(String nombUsuario, String logUsuario) {
-
-        LoginValidator loginValidator = new LoginValidator();
-        boolean loginSuccess;
-        loginSuccess = loginValidator.enviarDatos(nombUsuario.trim(), logUsuario.trim());
-        if (loginSuccess) {
-            // Usuario encontrado, hacer algo
-            Log.d("Login", "Usuario encontrado.");
-        } else {
-            // Usuario no encontrado o error
-            Log.d("Login", "Usuario no encontrado.");
-        }
-        return loginSuccess;
-    }*/
 
     // Metodo para validar que no queden valores en blanco
     public boolean textVacios(Integer cantValores, String valor1, String valor2, String valor3) {

@@ -5,17 +5,17 @@ import java.net.UnknownHostException;
 
 public class RedAdmin {
 
-    // Método para obtener la dirección IP local
-    public String localIps() {
-        try {
-            // Obtener la dirección IP local
-            InetAddress inetAddress = InetAddress.getLocalHost();
+    // Variable estática para mantener la IP sel servidor de servicios
+    private static String iPLocal = "192.168.1.10";
 
-            // Retornar la dirección IP como String
-            return inetAddress.getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            return null; // Si no se puede obtener la IP, devolver null
-        }
+    // Método para establecer IP
+    public  void setIpLocal(String iPRecibida) {
+        iPLocal = iPRecibida;
     }
+
+    // Método para obtener IP
+    public  String getIpLocal() {
+        return iPLocal;
+    }
+
 }

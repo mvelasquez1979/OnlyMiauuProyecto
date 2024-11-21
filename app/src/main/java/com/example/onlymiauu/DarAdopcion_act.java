@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,7 +32,7 @@ public class DarAdopcion_act extends AppCompatActivity implements View.OnClickLi
 
     //Inicializar los controles
     EditText etNombre, etRaza, etColores;
-    Button btnAtras, btnAceptar;
+    ImageButton btnAtrasAdo, btnAceptarAdo;
 
     //Incializar el arreglo para el spinner
     private Spinner spnSexos;
@@ -43,7 +43,8 @@ public class DarAdopcion_act extends AppCompatActivity implements View.OnClickLi
     ImageView foto_gallery;
 
     RequestQueue requestQueue;// para le conexion con la BBDD
-    private static final String URL1 = "http://192.168.56.1/onlymiauu/darAdopcion.php";
+    private static final String URL1 = "http://192.168.1.10/onlymiauu/darAdopcion.php";
+
     Administrador rUsuario = new Administrador(); // Instanciamos clase Administrador para las validaciones
 
     @Override
@@ -58,13 +59,13 @@ public class DarAdopcion_act extends AppCompatActivity implements View.OnClickLi
         etNombre = findViewById(R.id.etNombre);
         etRaza = findViewById(R.id.etRaza);
         etColores = findViewById(R.id.etColores);
-        btnAtras = findViewById(R.id.btnAtras);
-        btnAceptar = findViewById(R.id.btnAceptar);
+        btnAtrasAdo = findViewById(R.id.btnAtrasAdo);
+        btnAceptarAdo = findViewById(R.id.btnAceptarAdo);
         spnSexos = findViewById(R.id.spnSexos);
         foto_gallery = findViewById(R.id.foto_gallery);
 
-        btnAceptar.setOnClickListener(this);
-        btnAtras.setOnClickListener(this);
+        btnAceptarAdo.setOnClickListener(this);
+        btnAtrasAdo.setOnClickListener(this);
 
         ArrayAdapter<String> adapterSexo = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, sexos);
@@ -111,7 +112,7 @@ public class DarAdopcion_act extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btnAceptar) {
+        if (id == R.id.btnAceptarAdo) {
             String nombre = etNombre.getText().toString().trim();
             String raza = etRaza.getText().toString().trim();
             String vcolor = etColores.getText().toString().trim();
@@ -121,7 +122,7 @@ public class DarAdopcion_act extends AppCompatActivity implements View.OnClickLi
             } else {
                 Toast.makeText(DarAdopcion_act.this, "Por favor, ingrese los datos completos", Toast.LENGTH_SHORT).show();
             }
-        } else if (id == R.id.btnAtras) {
+        } else if (id == R.id.btnAtrasAdo) {
             Intent miIngreso = new Intent(this, Home_act.class);
             startActivity(miIngreso);
         }

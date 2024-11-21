@@ -6,14 +6,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import models.UserSession;
 
 public class Home_act extends AppCompatActivity {
-
-//////////////////////////
 
         TextView textpersona;
 
@@ -31,7 +28,7 @@ public class Home_act extends AppCompatActivity {
 
         }
 
-   /* public void irAdoptar(View vista){
+    public void irAdoptar(View vista){
         Intent miAdopta = new Intent(this, Adopta_act.class);
         startActivity(miAdopta);
     }
@@ -50,13 +47,8 @@ public class Home_act extends AppCompatActivity {
         startActivity(miAyuda);
     }
 
-    public void irEntrada(View vista){
-        Intent miEntrada = new Intent(this, Ingresar_act.class);
-        startActivity(miEntrada);
-    }*/
-
-
-
-/////////////////////////
-
+    public void irIngreso(View vista){
+        Intent miIngreso = new Intent(this, Ingresar_act.class);
+        startActivity(miIngreso);
     }
+}

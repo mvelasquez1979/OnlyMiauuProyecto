@@ -11,6 +11,12 @@ public class UserSession {
 
     // Método para obtener el nombre del usuario
     public  String getUserName() {
+        String[] partesNombre = userName.split(" ");
+        return partesNombre[0];
+    }
+
+    // Método para obtener el nombre completo del usuario
+    public  String getUserFullName() {
         return userName;
     }
 }

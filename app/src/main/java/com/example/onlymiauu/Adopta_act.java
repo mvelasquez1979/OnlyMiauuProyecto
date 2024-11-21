@@ -1,14 +1,19 @@
 package com.example.onlymiauu;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.ViewTransitionController;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,9 +30,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.RedAdmin;
+
+
 public class Adopta_act extends AppCompatActivity {
 
-    private ListView listView;
     private ArrayList<String> dataList;
     private ArrayAdapter<String> adapter;
 
@@ -39,19 +46,24 @@ public class Adopta_act extends AppCompatActivity {
 
         // Inicializar dataList y ListView
         dataList = new ArrayList<>();
-        listView = findViewById(R.id.listView); // ListView en el Activity
+        ListView listView = findViewById(R.id.listView); // ListView en el Activity
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
 
+        RedAdmin networkUtils = new RedAdmin(); // Instanciar la clase RedAdmin: Donde se encuentra el parametro IP del servidor PHP para los servicios
+
         // URL del JSON
-        String url = "http://10.110.44.155/onlymiauu/consultar.php"; // Reemplaza con tu URL local
+        String url = "http://"+ networkUtils.getIpLocal().trim() +"/onlymiauu/consultar.php"; // URL de lista de usuarios
+
+        // URL del JSON
+        //String url = "http://192.168.1.10/onlymiauu/consultar.php"; // Reemplaza con tu URL local
 
         // Crear una cola de solicitudes
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         // Hacer una solicitud JSON Array
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
                 null,
                 new Response.Listener<JSONArray>() {
@@ -61,13 +73,14 @@ public class Adopta_act extends AppCompatActivity {
                             // Iterar por cada objeto en el JSONArray
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonObject = response.getJSONObject(i);
+                                int id = jsonObject.getInt("id");
                                 String nombre = jsonObject.getString("nombre");
                                 String color = jsonObject.getString("color");
                                 String raza = jsonObject.getString("raza");
 
                                 // Construir la cadena y agregarla al ArrayList
                                 //String item = nombre + " - " + raza + " - " + color;
-                                dataList.add("Nombre: " + nombre + " - Raza: " + raza + " - Color: " + color);
+                                dataList.add("Código: " +  id + " - Nombre: " + nombre + " - Raza: " + raza + " - Color: " + color);
                             }
                             // Notificar al adapter que los datos han cambiado
                             adapter.notifyDataSetChanged();
@@ -89,47 +102,69 @@ public class Adopta_act extends AppCompatActivity {
 
     }
     // Método para Adoptar(sin cambios)
-    public final void adopta(){
+    public void adopta(View vista){
         TextView nombreIngresado = findViewById(R.id.txtNombre);
-        //TextView sueldoIngresado = findViewById(R.id.txtSueldo);
-
         String vNombreIngresado = nombreIngresado.getText().toString().trim();
-        //Integer vSueldoIngresado = Integer.parseInt(sueldoIngresado.getText().toString().trim());
 
-        // Verificar que el nombre no esté vacío
+         //Verificar que el nombre no esté vacío
         if (vNombreIngresado.isEmpty()) {
-            Toast.makeText(this, "Por favor, ingrese un nombre", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Por favor, ingrese un Código", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Crear la URL para la actualización
-        String url2 = "http://10.110.44.155/onlymiauu/updateAdopcion.php"; // Cambia esto a tu URL real
-
-        // Crear la cola de solicitudes
+//-------------------------------------------------------------------------------
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
 
-        // Crear la solicitud de actualización
-        StringRequest stringRequest2 = new StringRequest(Request.Method.POST, url2,
-                response -> {
-                    // Manejar la respuesta
-                    if (response.equals("success")) {
-                        Toast.makeText(this, "Adopción registrada con éxito", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "Error al registrar la adopción", Toast.LENGTH_SHORT).show();
+        EditText txtNombre = findViewById(R.id.txtNombre);
+        EditText txtEdad = findViewById(R.id.txtEdad);
+        EditText txtSueldo = findViewById(R.id.txtSueldo);
+        
+        RedAdmin redUtils = new RedAdmin();
+        String URL2 = "http://"+ redUtils.getIpLocal() +"/onlymiauu/updateAdopcion.php";
+
+        //String vtxtNombre = String.valueOf(txtSueldo.getText());
+        String vtxtNombre = String.valueOf(txtSueldo.getText());
+        StringRequest stringRequest2 = new StringRequest(
+                Request.Method.POST,
+                URL2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(Adopta_act.this, "Listo! Puedes retirar a tu nuev@ amig@", Toast.LENGTH_LONG).show();
+                        txtNombre.setText("");
+                        txtEdad.setText("");
+                        txtSueldo.setText("");
                     }
                 },
-                error -> Toast.makeText(this, "Error en la conexión: " + error.getMessage(), Toast.LENGTH_SHORT).show()
-        ) {
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Adopta_act.this, "Error en actualizar estado", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ){
             @Override
-            protected Map<String, String> getParams() {
+            protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("nombre", vNombreIngresado);
+                params.put("id", vNombreIngresado);
                 return params;
             }
         };
 
-        // Agregar la solicitud a la cola
         requestQueue2.add(stringRequest2);
+
+
+
+
+//-------------------------------------------------------------------------------
+
     }
+
+    public void irHome(View vista){
+        Intent miHome = new Intent(this, Home_act.class);
+        startActivity(miHome);
+    }
+
+
 
 }
