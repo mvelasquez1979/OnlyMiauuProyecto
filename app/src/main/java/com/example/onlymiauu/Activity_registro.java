@@ -73,7 +73,7 @@ public class Activity_registro extends AppCompatActivity implements  View.OnClic
                 Toast.makeText(Activity_registro.this,"Por favor, ingrese los datos completos", Toast.LENGTH_SHORT).show();
             }
         }else if (id == R.id.btnAtras){
-            Intent miIngreso = new Intent(this, Activity_ingeso.class);
+            Intent miIngreso = new Intent(this, Ingresar_act.class);
             startActivity(miIngreso);        }
     }
 

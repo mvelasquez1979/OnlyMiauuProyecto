@@ -51,6 +51,10 @@ public class Administrador {
 
     // Method para validar Login
     public boolean validaLogin(String nombUsuario, String logUsuario) {
+        String xLogin, xPassword;
+
+        
+
         return (Objects.equals(nombUsuario, "only") && Objects.equals(logUsuario, "1234"));
     }
 
