@@ -112,7 +112,6 @@ public class Adopta_act extends AppCompatActivity {
             return;
         }
 
-//-------------------------------------------------------------------------------
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
 
         EditText txtNombre = findViewById(R.id.txtNombre);
@@ -152,12 +151,6 @@ public class Adopta_act extends AppCompatActivity {
         };
 
         requestQueue2.add(stringRequest2);
-
-
-
-
-//-------------------------------------------------------------------------------
-
     }
 
     public void irHome(View vista){
