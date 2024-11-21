@@ -17,13 +17,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".RegistrarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Home_act"
+            android:exported="false" />
+        <activity
+            android:name=".Ingresar_act"
+            android:exported="false" />
+        <activity
             android:name=".activity_plantilla"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_Dar"
-            android:exported="false" />
-        <activity
-            android:name=".DarAdopcionActivity"
             android:exported="false" />
         <activity
             android:name=".ayuda_act"
@@ -38,13 +41,7 @@
             android:name=".Adopta_act"
             android:exported="false" />
         <activity
-            android:name=".Home_act"
-            android:exported="false" />
-        <activity
             android:name=".Activity_registro"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_ingeso"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -55,6 +52,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

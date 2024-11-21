@@ -51,7 +51,7 @@ public class Animales {
         return color;
     }
 
-    public String getSexo() {
+    public  String getSexo() {
         return sexo;
     }
 
@@ -80,8 +80,8 @@ public class Animales {
         this.color = color;
     }
 
-    public void setSexo() {
-        this.sexo = sexo;
+    public  void setSexo(String userSexo) {
+        sexo = userSexo;
     }
 
     public void setEsteril() {

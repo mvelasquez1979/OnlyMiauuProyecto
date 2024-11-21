@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Ingresar_act">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="3dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/land_login">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:outlineProvider="none">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView7"
+                        android:layout_width="320dp"
+                        android:layout_height="280dp"
+                        android:background="@android:color/transparent"
+                        android:outlineProvider="none"
+                        app:cardBackgroundColor="#00000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.494"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.817">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="281dp"
+                            android:outlineProvider="background">
+
+                            <EditText
+                                android:id="@+id/etUsername"
+                                android:layout_width="260dp"
+                                android:layout_height="47dp"
+                                android:layout_marginStart="55dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="55dp"
+                                android:layout_marginBottom="24dp"
+                                android:ems="10"
+                                android:fontFamily="@font/lilita_one"
+                                android:hint="Ingrese su mail de usuario"
+                                android:inputType="textEmailAddress"
+                                android:textColor="#F06D6D"
+                                android:textColorHint="#F8CFCC"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toTopOf="@+id/etPassword"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/etPassword"
+                                android:layout_width="259dp"
+                                android:layout_height="42dp"
+                                android:layout_marginStart="55dp"
+                                android:layout_marginEnd="55dp"
+                                android:layout_marginBottom="140dp"
+                                android:ems="10"
+                                android:fontFamily="@font/lilita_one"
+                                android:hint="Ingrese su contraseña"
+                                android:inputType="textPassword"
+                                android:textColor="#F06D6D"
+                                android:textColorHint="#F8CFCC"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+                            <ImageButton
+                                android:id="@+id/btnIngresar"
+                                android:layout_width="166dp"
+                                android:layout_height="46dp"
+                                android:layout_marginStart="77dp"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginEnd="76dp"
+                                android:layout_marginBottom="88dp"
+                                android:background="@android:color/transparent"
+                                android:scaleType="centerCrop"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/etPassword"
+                                app:srcCompat="@drawable/btn_iniciar_sesion" />
+
+                            <ImageButton
+                                android:id="@+id/btnVolverIngresar"
+                                android:layout_width="126dp"
+                                android:layout_height="58dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="28dp"
+                                android:layout_marginEnd="170dp"
+                                android:layout_marginBottom="4dp"
+                                android:background="@android:color/transparent"
+                                android:onClick="irMain"
+                                android:scaleType="centerCrop"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/btnIngresar"
+                                app:layout_constraintVertical_bias="0.0"
+                                app:srcCompat="@drawable/btn_volver_huellas" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageButton
+                        android:id="@+id/btnRegistrar"
+                        android:layout_width="77dp"
+                        android:layout_height="23dp"
+                        android:layout_marginStart="235dp"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginEnd="83dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="@android:color/transparent"
+                        android:onClick="irRegistro"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView7"
+                        app:srcCompat="@drawable/btn_registrate" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

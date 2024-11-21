@@ -1,11 +1,11 @@
 package models;
-import java.util.Objects;
 
 public class Administrador {
     //Variables
     private int    id_administrador;
     private String nombre;
     private String password;
+     boolean logUsu;
 
     //Costructor por defecto
     public Administrador()
@@ -49,10 +49,6 @@ public class Administrador {
         this.password = password;
     }
 
-    // Method para validar Login
-    public boolean validaLogin(String nombUsuario, String logUsuario) {
-        return (Objects.equals(nombUsuario, "only") && Objects.equals(logUsuario, "1234"));
-    }
 
     // Metodo para validar que no queden valores en blanco
     public boolean textVacios(Integer cantValores, String valor1, String valor2, String valor3) {
@@ -73,6 +69,5 @@ public class Administrador {
         }
         return x;
     }
-
 
 }

@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,28 +23,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 import models.Administrador;
+import models.RedAdmin;
 
-public class Activity_registro extends AppCompatActivity implements  View.OnClickListener{
-
+public class RegistrarActivity extends AppCompatActivity implements  View.OnClickListener{
     EditText etNombreUsuario, etEmailUsuario, etContraUsuario;
-    Button btnAtras,btnAceptar;
+    ImageButton btnAtrasReg,btnAceptarReg;
     RequestQueue requestQueue;
-    private static final String URL1 = "http://10.110.44.155/onlymiauu/registrar.php";
+
+    static RedAdmin redUtils = new RedAdmin();
+
+    private static final String URL1 = "http://"+ redUtils.getIpLocal() +"/onlymiauu/registrar.php";
+
     Administrador rUsuario = new Administrador();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);// <------------------------------------
-        setContentView(R.layout.activity_registro);
+        EdgeToEdge.enable(this);//
+        setContentView(R.layout.activity_registrar);
 
         requestQueue = Volley.newRequestQueue(this);
 
         //UI
         initUI();
 
-        btnAceptar.setOnClickListener(this);
-        btnAtras.setOnClickListener(this);
+        btnAceptarReg.setOnClickListener(this);
     }
 
     @SuppressLint("WrongViewCast")
@@ -55,37 +59,33 @@ public class Activity_registro extends AppCompatActivity implements  View.OnClic
         etContraUsuario = findViewById(R.id.etColores);
 
         //Botones
-        btnAtras = findViewById(R.id.btnAtras);
-        btnAceptar = findViewById(R.id.btnAceptar);
+        btnAtrasReg = findViewById(R.id.btnAtrasReg);
+        btnAceptarReg = findViewById(R.id.btnAceptarAdo);
     }
 
-    @Override
-    public void onClick(View v){
+    //@Override
+    public void onClick(View v){//Metodo click del boton Registrar
         int id = v.getId();
-        if (id == R.id.btnAceptar){
-
+        if (id == R.id.btnAceptarAdo){
             String nombre = etNombreUsuario.getText().toString().trim();
             String username = etEmailUsuario.getText().toString().trim();
             String pwd = etContraUsuario.getText().toString().trim();
             if(!rUsuario.textVacios(3,nombre,username,pwd)) {
-                registrarUsuario(nombre, username, pwd);
+                registrarUsuario(nombre, username, pwd);//Llama a la funcion registrarUsuario
             }else{
-                Toast.makeText(Activity_registro.this,"Por favor, ingrese los datos completos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrarActivity.this,"Por favor, ingrese los datos completos", Toast.LENGTH_SHORT).show();
             }
-        }else if (id == R.id.btnAtras){
-            Intent miIngreso = new Intent(this, Activity_ingeso.class);
-            startActivity(miIngreso);        }
+        }
     }
 
-    private void registrarUsuario( String nombre, String username, String pwd){
+    private void registrarUsuario( String nombre, String username, String pwd){//Funcion para enviar los datos ingresados al servicio Ingresar
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
                 URL1,
                 new Response.Listener<String>() {
                     @Override
-
                     public void onResponse(String response) {
-                        Toast.makeText(Activity_registro.this, "Usuario agregado", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistrarActivity.this, "Usuario agregado", Toast.LENGTH_LONG).show();
                         etNombreUsuario.setText("");
                         etEmailUsuario.setText("");
                         etContraUsuario.setText("");
@@ -94,7 +94,7 @@ public class Activity_registro extends AppCompatActivity implements  View.OnClic
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Activity_registro.this, "Error en agregar usuario", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrarActivity.this, "Error en agregar usuario", Toast.LENGTH_SHORT).show();
                     }
                 }
         ){
@@ -109,8 +109,10 @@ public class Activity_registro extends AppCompatActivity implements  View.OnClic
         };
 
         requestQueue.add(stringRequest);
-
     }
 
-
+    public void irIngreso(View view){
+        Intent miIngreso = new Intent(this, Ingresar_act.class);
+        startActivity(miIngreso);
+    }
 }

@@ -1,91 +1,54 @@
 package com.example.onlymiauu;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
-
-import models.Administrador;
+import models.UserSession;
 
 public class Home_act extends AppCompatActivity {
 
+        TextView textpersona;
 
-    Button btnAdopt,ButtonDar,ButtonRed,ButtonAyuda;
-    //Text Textpersona;
-    Administrador person = new Administrador();
+        UserSession usuClase = new UserSession();
 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            EdgeToEdge.enable(this);
+            setContentView(R.layout.activity_home);
 
+            textpersona  = findViewById(R.id.textpersona);
 
-    @SuppressLint("WrongViewCast")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home);
+            textpersona.setText(usuClase.getUserName());
 
-        //Animacion del gato en caja de la activity home
-        LottieAnimationView animationView = findViewById(R.id.animationView);
-        animationView.setAnimation(R.raw.animation);
-        animationView.setSpeed(0.3f); //Control de velocidad-cambia 0.3 por el factor que desees (menor a 1 es más lento)
+        }
 
-        btnAdopt = findViewById(R.id.btnAdopt);
-        //Textpersona = findViewById(R.id.Textpersona);
-        ButtonDar = findViewById(R.id.ButtonDar);
-        ButtonRed = findViewById(R.id.ButtonRed);
-        ButtonAyuda = findViewById(R.id.ButtonAyuda);
-
-
-        btnAdopt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(Home_act.this,Adopta_act.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.derechaanima, R.anim.izquierdaanima);
-            }
-        });
-
-        ButtonDar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(Home_act.this,DarAdopcion_act.class);
-                startActivity(intent);
-            }
-        });
-
-        ButtonRed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(Home_act.this,redes_act.class);
-                startActivity(intent);
-            }
-        });
-
-        ButtonAyuda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(Home_act.this,ayuda_act.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void irAdoptar(View vista){
+        Intent miAdopta = new Intent(this, Adopta_act.class);
+        startActivity(miAdopta);
+    }
+    public void irDarAdopcion(View vista){
+        Intent miDarAdopcion = new Intent(this, DarAdopcion_act.class);
+        startActivity(miDarAdopcion);
     }
 
+    public void irRRSS(View vista){
+        Intent miRRSS = new Intent(this, redes_act.class);
+        startActivity(miRRSS);
+    }
+
+    public void irAyuda(View vista){
+        Intent miAyuda = new Intent(this, ayuda_act.class);
+        startActivity(miAyuda);
+    }
+
+    public void irIngreso(View vista){
+        Intent miIngreso = new Intent(this, Ingresar_act.class);
+        startActivity(miIngreso);
+    }
 }

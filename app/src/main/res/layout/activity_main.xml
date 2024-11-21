@@ -18,8 +18,10 @@
             android:id="@+id/imageView14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/land_main"
-            android:scaleType="fitXY" />
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <ImageButton
             android:id="@+id/imageButton"
