@@ -1,9 +1,10 @@
 package models;
-import java.util.Objects;
 
 public class Administrador {
     //Variables
     private int    id_administrador;
+    private int    edadMinima = 18;
+    private int    ingresoMinimo = 1500000;
     private String nombre;
     private String password;
 
@@ -37,26 +38,17 @@ public class Administrador {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String vnombre){nombre = vnombre;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String vpassword) {
+        password = vpassword;
     }
 
-    // Method para validar Login
-    public boolean validaLogin(String nombUsuario, String logUsuario) {
-        String xLogin, xPassword;
-
-        
-
-        return (Objects.equals(nombUsuario, "only") && Objects.equals(logUsuario, "1234"));
-    }
 
     // Metodo para validar que no queden valores en blanco
     public boolean textVacios(Integer cantValores, String valor1, String valor2, String valor3) {
@@ -78,5 +70,44 @@ public class Administrador {
         return x;
     }
 
+   /* // Metodo para validar que ingresos sea el requerido
+    public boolean textVacios(Integer cantValores, String valor1, String valor2, String valor3) {
+        boolean x;
+        switch (cantValores){
+            case 1:
+                x = (valor1.isEmpty());
+                break;
+            case 2:
+                x = (valor1.isEmpty() || valor2.isEmpty());
+                break;
+            case 3:
+                x = (valor1.isEmpty() || valor2.isEmpty() || valor3.isEmpty());
+                break;
+            default:
+                x = false;
+                break;
+        }
+        return x;
+    }
+
+    // Metodo para validar que la edad sea la requerida
+    public boolean textVacios(Integer cantValores, String valor1, String valor2, String valor3) {
+        boolean x;
+        switch (cantValores){
+            case 1:
+                x = (valor1.isEmpty());
+                break;
+            case 2:
+                x = (valor1.isEmpty() || valor2.isEmpty());
+                break;
+            case 3:
+                x = (valor1.isEmpty() || valor2.isEmpty() || valor3.isEmpty());
+                break;
+            default:
+                x = false;
+                break;
+        }
+        return x;
+    }*/
 
 }
