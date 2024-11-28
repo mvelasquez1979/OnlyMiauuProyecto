@@ -33,7 +33,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/Textpersona"
+                android:id="@+id/textpersona"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -62,7 +62,7 @@
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#00009688"
                 android:tint="#000000"
-                app:layout_constraintBottom_toTopOf="@+id/Textpersona"
+                app:layout_constraintBottom_toTopOf="@+id/textpersona"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/bottom_btn3" />
