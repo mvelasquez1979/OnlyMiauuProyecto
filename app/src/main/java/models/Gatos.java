@@ -1,34 +1,37 @@
 package models;
 
-import java.util.Date;
 
 public class Gatos extends Animales{
-    private String raza;
-
-    // Constructor
-    public Gatos(String nombre, int edad, String raza, String color, String sexo, Boolean esteril, Date fechaNac, String foto) {
-        super(nombre, edad, color, sexo, esteril, fechaNac, foto); // Llamada al constructor de la clase base
-        this.raza = raza;
-    }
+    private static String razaGato;
+    private static String[][] arrayGatos;
 
     public Gatos() {
         super();
     }
 
-    @Override
-    public void mostrarInfo() {
-        super.mostrarInfo(); // Llama al método de la clase base
-        System.out.println("Raza: " + raza);
+
+    // Método para establecer raza
+    public  void setgatoRaza(String name) {
+        razaGato = name;
     }
 
-    // Getter
-    public String getRaza() {
-        return raza;
+    // Método para obtener raza
+    public  String getGatoArray() {
+        return razaGato;
     }
 
-    // Setter
-    public void setRaza() {
-        this.raza = raza;
+    // Método para establecer array
+    public  void setgatoArray(Integer id,String name) {
+        getAnimalId(id);
+        razaGato = name;
+        arrayGatos[1][id] = String.valueOf(id);
+        arrayGatos[2][id] = name ;
+
+    }
+
+    // Método para obtener array
+    public  String getGatoRaza() {
+        return razaGato;
     }
 
 }
