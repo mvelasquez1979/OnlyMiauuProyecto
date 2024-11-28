@@ -72,7 +72,7 @@ public class Adopta_act extends AppCompatActivity {
                             dataList.clear(); // Limpiar los datos existentes
                             try {
                                 // Iterar por cada objeto en el JSONArray
-                                Gatos gatoAdoptado = new Gatos; // Instanciar la clase Gatos que hereda de Animales
+                                Gatos gatoAdoptado = new Gatos(); // Instanciar la clase Gatos que hereda de Animales
 
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject jsonObject = response.getJSONObject(i);
