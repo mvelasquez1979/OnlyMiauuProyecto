@@ -1,100 +1,40 @@
 package models;
 
-import java.util.Date;
-
 public class Animales {
-    private String nombre;
-    private int edad;
-    private String color;
-    private String sexo;
-    private boolean esteril;
-    private Date fechaNac;
-    private String foto;
-    private Date fechaIngreso;
+    // Variable estática para mantener el nombre del animal
+    private static Integer animalId;
+    private static String animalName;
 
     // Constructor
-    public Animales(String nombre, int edad, String color, String sexo, boolean esteril, Date fechaNac, String foto) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.color = color;
-        this.sexo = sexo;
-        this.esteril = esteril;
-        this.foto = foto;
+    public Animales(int id, String nombre) {
+        animalId = id;
+        animalName = nombre;
     }
 
     public Animales() {
 
     }
 
-    // Método para mostrar información
-    public void mostrarInfo() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Edad: " + edad);
-        System.out.println("Color: " + color);
-        System.out.println("Sexo: " + sexo);
-        System.out.println("Esteril: " + esteril);
-        System.out.println("Fecha nacimiento: " + fechaNac);
-        System.out.println("Foto: " + foto);
-
+    // Método para establecer el nombre del animal
+    public  void setAnimalName(String name) {
+        animalName = name;
     }
 
-    // Getters
-    public String getNombre() {
-        return nombre;
+    // Método para obtener el nombre del animal
+    public  String getAnimalName() {
+        return animalName;
     }
 
-    public int getEdad() {
-        return edad;
+    // Método para establecer el id del animal
+    public  void setAnimalId(Integer id) {
+        animalId = id;
     }
 
-    public String getColores() {
-        return color;
+    // Método para obtener el id del animal
+    public  Integer getAnimalId(Integer id) {
+        return animalId;
     }
 
-    public  String getSexo() {
-        return sexo;
-    }
-
-    public boolean getEsteril() {
-        return esteril;
-    }
-
-    public Date getFechaNac() {
-        return fechaNac;
-    }
-
-    public String getFoto(){
-        return foto;
-    }
-
-    // Setters
-    public void setNombre() {
-        this.nombre = nombre;
-    }
-
-    public void setEdad() {
-        this.edad = edad;
-    }
-
-    public void setColores() {
-        this.color = color;
-    }
-
-    public  void setSexo(String userSexo) {
-        sexo = userSexo;
-    }
-
-    public void setEsteril() {
-        this.esteril = esteril;
-    }
-
-    public void setFechaNac() {
-        this.fechaNac = fechaNac;
-    }
-
-    public void setFoto(){
-        this.foto = foto;
-    }
 }
 
 

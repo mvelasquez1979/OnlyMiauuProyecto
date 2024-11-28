@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 public class RedAdmin {
 
     // Variable estática para mantener la IP sel servidor de servicios
-    private static String iPLocal = "192.168.1.10";
+    private static String iPLocal = "192.168.1.65";
 
     // Método para establecer IP
     public  void setIpLocal(String iPRecibida) {

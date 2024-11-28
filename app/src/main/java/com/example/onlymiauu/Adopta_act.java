@@ -30,7 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.Administrador;
 import models.RedAdmin;
+import models.Gatos;
 
 
 public class Adopta_act extends AppCompatActivity {
@@ -40,6 +42,7 @@ public class Adopta_act extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final String nombreGato = "";
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_adopta); // Asegúrate de establecer el contenido correcto
@@ -50,65 +53,72 @@ public class Adopta_act extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
 
-        RedAdmin networkUtils = new RedAdmin(); // Instanciar la clase RedAdmin: Donde se encuentra el parametro IP del servidor PHP para los servicios
+        // Método para cargar los datos y actualizar el ListView
+        RedAdmin networkUtils = new RedAdmin(); // Instanciar la clase RedAdmin
+        //Gatos gatoAdoptado = new Gatos(); // Instanciar la clase RedAdmin
+            String url = "http://"+ networkUtils.getIpLocal().trim() +"/onlymiauu/consultar.php"; // URL de la consulta
 
-        // URL del JSON
-        String url = "http://"+ networkUtils.getIpLocal().trim() +"/onlymiauu/consultar.php"; // URL de lista de usuarios
+            // Crear una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        // URL del JSON
-        //String url = "http://192.168.1.10/onlymiauu/consultar.php"; // Reemplaza con tu URL local
+            // Hacer una solicitud JSON Array
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Request.Method.POST,
+                    url,
+                    null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            dataList.clear(); // Limpiar los datos existentes
+                            try {
+                                // Iterar por cada objeto en el JSONArray
+                                Gatos gatoAdoptado = new Gatos; // Instanciar la clase Gatos que hereda de Animales
 
-        // Crear una cola de solicitudes
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+                                for (int i = 0; i < response.length(); i++) {
+                                    JSONObject jsonObject = response.getJSONObject(i);
+                                    int id = jsonObject.getInt("id");
+                                    String nombre = jsonObject.getString("nombre");
+                                    String color = jsonObject.getString("color");
+                                    String raza = jsonObject.getString("raza");
 
-        // Hacer una solicitud JSON Array
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.POST,
-                url,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) { //Instancia el JSONArray en el objeto response
-                        try {
-                            // Iterar por cada objeto en el JSONArray
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                int id = jsonObject.getInt("id");
-                                String nombre = jsonObject.getString("nombre");
-                                String color = jsonObject.getString("color");
-                                String raza = jsonObject.getString("raza");
 
-                                // Construir la cadena y agregarla al ArrayList
-                                //String item = nombre + " - " + raza + " - " + color;
-                                dataList.add("Código: " +  id + " - Nombre: " + nombre + " - Raza: " + raza + " - Color: " + color);
+
+                                    // Construir la cadena y agregarla al ArrayList
+                                    dataList.add("Código: " + id + " - Nombre: " + nombre + " - Raza: " + raza + " - Color: " + color);
+
+                                }
+                                // Notificar al adapter que los datos han cambiado
+                                adapter.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            // Notificar al adapter que los datos han cambiado
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Mostrar un mensaje en caso de error
-                        Toast.makeText(Adopta_act.this, "Error al obtener datos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // Mostrar un mensaje en caso de error
+                            Toast.makeText(Adopta_act.this, "Error al obtener datos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-        // Agregar la solicitud a la cola
-        requestQueue.add(jsonArrayRequest);
+            // Agregar la solicitud a la cola
+            requestQueue.add(jsonArrayRequest);
 
     }
     // Método para Adoptar(sin cambios)
     public void adopta(View vista){
         TextView nombreIngresado = findViewById(R.id.txtNombre);
+        TextView edadIngresada = findViewById(R.id.txtEdad);
+        TextView sueldoIngresado = findViewById(R.id.txtSueldo);
         String vNombreIngresado = nombreIngresado.getText().toString().trim();
+        String vEdadIngresada = edadIngresada.getText().toString().trim();
+        String vSueldoIngresado = sueldoIngresado.getText().toString().trim();
 
+        Administrador adminAdopta = new Administrador();
          //Verificar que el nombre no esté vacío
-        if (vNombreIngresado.isEmpty()) {
-            Toast.makeText(this, "Por favor, ingrese un Código", Toast.LENGTH_SHORT).show();
+        if (adminAdopta.textVacios(3,vNombreIngresado,vEdadIngresada,vSueldoIngresado)) {
+            Toast.makeText(this, "Por favor, ingrese datos válidos", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -121,7 +131,6 @@ public class Adopta_act extends AppCompatActivity {
         RedAdmin redUtils = new RedAdmin();
         String URL2 = "http://"+ redUtils.getIpLocal() +"/onlymiauu/updateAdopcion.php";
 
-        //String vtxtNombre = String.valueOf(txtSueldo.getText());
         String vtxtNombre = String.valueOf(txtSueldo.getText());
         StringRequest stringRequest2 = new StringRequest(
                 Request.Method.POST,
@@ -129,10 +138,11 @@ public class Adopta_act extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Adopta_act.this, "Listo! Puedes retirar a tu nuev@ amig@", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Adopta_act.this, "Listo! Puedes retirar a tu nuev@ amig@", Toast.LENGTH_LONG).show();
                         txtNombre.setText("");
                         txtEdad.setText("");
                         txtSueldo.setText("");
+                        irExito(vista);
                     }
                 },
                 new Response.ErrorListener() {
@@ -156,6 +166,11 @@ public class Adopta_act extends AppCompatActivity {
     public void irHome(View vista){
         Intent miHome = new Intent(this, Home_act.class);
         startActivity(miHome);
+    }
+
+    public void irExito(View vista){
+        Intent miExito = new Intent(this, ExitoActivity.class);
+        startActivity(miExito);
     }
 
 
